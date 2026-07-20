@@ -465,17 +465,12 @@ def predict():
 # ---------------------- USER HISTORY ----------------------
 @app.route("/history")
 def history():
-    if not user_required():
+    if "user" not in session:
         return redirect("/login")
 
     con = db()
     cur = con.cursor()
-    cur.execute("""
-        SELECT id, username, text, prediction, admin_action
-        FROM history
-        WHERE username=?
-        ORDER BY id DESC
-    """, (session["user"],))
+    cur.execute("SELECT id, username, text, prediction, admin_action FROM history WHERE username=?ORDER BY id DESC",(session["user"],))
     data = cur.fetchall()
     con.close()
 
