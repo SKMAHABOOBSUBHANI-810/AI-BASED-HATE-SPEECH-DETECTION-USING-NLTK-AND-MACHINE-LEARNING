@@ -52,15 +52,14 @@ with sqlite3.connect("hate_speech_ai.db")as conn:
         CREATE TABLE IF NOT EXISTS users(
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             username TEXT UNIQUE NOT NULL,
-            password TEXT NOT NULL
+            password TEXT NOT NULL,
             email TEXT,
             mobile TEXT,
             address TEXT,
             status TEXT DEFAULT 'active',
             warning_count INTEGER DEFAULT 0
-          )
+        )
     """)
-
 
 # ---------------------- HELPERS ----------------------
 def admin_required():
