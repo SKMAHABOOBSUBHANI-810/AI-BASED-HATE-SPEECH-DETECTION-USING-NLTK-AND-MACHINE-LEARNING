@@ -54,7 +54,7 @@ with sqlite3.connect("hate_speech_ai.db")as conn:
                  username TEXT UNIQUE NOT NULL,
                  password TEXT NOT NULL
                  )
-                 """)
+                 "")
 
 
 # ---------------------- HELPERS ----------------------
