@@ -520,11 +520,13 @@ def review_predictions():
 
     con = db()
     cur = con.cursor()
-    cur.execute("""SELECT h.id, h.username, h.text, h.prediction, h.admin_action,
+    cur.execute(""" 
+        SELECT h.id, h.username, h.text, h.prediction, h.admin_action,
                u.status, u.warning_count
         FROM history h
         JOIN users u ON h.username = u.username
-        ORDER BY h.id DESC""")
+        ORDER BY h.id DESC 
+    """)
     data = cur.fetchall()
     con.close()
 
