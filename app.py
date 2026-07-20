@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, session, flash
-import pymysql
+import sqlite3
 import pandas as pd
 import matplotlib
 matplotlib.use("Agg")
