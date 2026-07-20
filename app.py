@@ -170,14 +170,12 @@ def login():
         con = db()
         cur = con.cursor()
         cur.execute(
-            "SELECT * FROM users WHERE username=? AND password=?",
-            (username, password)
-        )
-        data = cur.fetchone()
+            "SELECT * FROM users WHERE username=? AND password=?",(username, password))
+        user = cur.fetchone()
         con.close()
 
-        if data:
-            if data.get("status") == "blocked":
+        if user:
+            if user["status"] == "blocked":
                 flash("Your account is blocked by admin")
                 return redirect("/login")
 
@@ -186,6 +184,7 @@ def login():
             return redirect("/predict")
         else:
             flash("Invalid username or password")
+            return redirect("/login")
 
     return render_template("login.html")
 
