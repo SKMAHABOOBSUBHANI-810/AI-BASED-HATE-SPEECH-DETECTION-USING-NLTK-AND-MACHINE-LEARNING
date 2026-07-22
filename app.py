@@ -656,6 +656,29 @@ def admin_delete_all_history():
 
     flash("All history deleted by admin")
     return redirect("/all_history")  
+# ---------------------- KEEP ALIVE BACKGROUND PING ----------------------
+import threading
+import time
+import urllib.request
+
+def keep_alive_ping():
+    # Allow the server 30 seconds to fully deploy and start up
+    time.sleep(30) 
+    url = "https://onrender.com"
+    
+    while True:
+        try:
+            # Performs a quiet request to wake up the Render container
+            with urllib.request.urlopen(url) as response:
+                print(f"Keep-alive ping sent. Response: {response.getcode()}", flush=True)
+        except Exception as e:
+            print(f"Keep-alive ping exception: {e}", flush=True)
+        
+        # Standby for 13 minutes (780 seconds) before pinging again
+        time.sleep(780)
+
+# Start the routine inside a non-blocking daemon thread
+threading.Thread(target=keep_alive_ping, daemon=True).start()
 
 if __name__ == "__main__":
     app.run(debug=True)
